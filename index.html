@@ -1,396 +1,300 @@
-```html
 <!doctype html>
 <html lang="hu">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Oktatási Közös Nevező — állampolgári visszajelzések</title>
-
-  <!-- Typography: publication-like headings + clean body -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oktatási Közös Nevező</title>
+  <meta name="description" content="Oktatási Közös Nevező — állampolgári visszajelzések összegzése az oktatás kihívásairól és megoldási irányairól.">
 
   <style>
     :root{
-      --bg: #ffffff;
-      --text: #141414;
-      --muted: #5b5b5b;
-      --line: #e7e7e7;
-      --soft: #f6f6f6;
-      --accent: #1f4b99; /* finom, „szakmai” kék — ha nem kell, átírható feketébbre */
-      --shadow: 0 10px 30px rgba(0,0,0,.06);
-      --radius: 16px;
+      /* Finoman, kiadvány-jelleggel: sötét alapszín + visszafogott kékeszöld akcent */
+      --bg: #0b1220;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.04);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --soft: rgba(255,255,255,0.14);
+      --accent: #3dd6c6;
+      --accent2:#5aa7ff;
+      --shadow: 0 18px 60px rgba(0,0,0,0.45);
+      --radius: 18px;
+      --max: 980px;
+      --pad: 22px;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height:1.55;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(1100px 520px at 18% 10%, rgba(90,167,255,0.22) 0%, rgba(90,167,255,0) 60%),
+        radial-gradient(900px 520px at 82% 18%, rgba(61,214,198,0.20) 0%, rgba(61,214,198,0) 60%),
+        linear-gradient(180deg, #070b14 0%, #0b1220 60%, #070b14 100%);
     }
 
-    a{ color:var(--accent); text-decoration: none; }
+    a{ color: var(--text); text-decoration: none; }
     a:hover{ text-decoration: underline; }
 
     .wrap{
-      max-width: 980px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 48px 20px 72px;
+      padding: 34px 18px 46px;
     }
 
-    header{
-      padding: 18px 0 28px;
-      border-bottom: 1px solid var(--line);
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 12px 0 22px;
     }
 
     .brand{
       display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 20px;
-    }
-
-    .logoRow{
-      display:flex;
       align-items:center;
-      gap: 14px;
+      gap: 12px;
       min-width: 0;
     }
 
     .logo{
-      width: 54px;
-      height: 54px;
-      border-radius: 12px;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      flex: 0 0 auto;
+      height: 44px;
+      width: auto;
+      display:block;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.35));
     }
-    /* Ha van logófájl: tedd a repo gyökerébe pl. okn-logo.png néven, és írd át src-t */
-    .logo img{ width:100%; height:100%; object-fit:contain; display:block; }
 
-    .titleBlock{ min-width:0; }
-    .kicker{
-      font-size: 12px;
-      letter-spacing: .12em;
+    .brand-title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.15;
+      min-width:0;
+    }
+    .brand-title b{
+      font-size: 14px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin: 2px 0 8px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    h1{
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-weight: 600;
-      font-size: 44px;
-      line-height: 1.05;
-      margin: 0 0 10px;
-    }
-    .subtitle{
-      color: var(--muted);
-      font-size: 16px;
-      margin: 0;
-      max-width: 60ch;
+    .brand-title span{
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .metaBox{
-      text-align:right;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--soft);
+      background: rgba(255,255,255,0.04);
       color: var(--muted);
       font-size: 13px;
       white-space: nowrap;
     }
-    .metaBox .small{ display:block; margin-top:6px; }
 
-    .heroActions{
+    .hero{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-inner{
+      padding: 28px;
+    }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -0.02em;
+    }
+
+    .lead{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 72ch;
+    }
+
+    .cta-row{
       display:flex;
       flex-wrap:wrap;
       gap: 12px;
-      margin-top: 18px;
       align-items:center;
+      margin-top: 16px;
     }
 
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      padding: 12px 14px;
+      gap: 10px;
+      padding: 12px 16px;
       border-radius: 12px;
-      border: 1px solid var(--text);
-      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
       color: var(--text);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 14px;
-      text-decoration:none;
-      transition: .15s ease;
+      cursor: pointer;
+      user-select:none;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
     }
-    .btn:hover{
-      background: var(--text);
-      color: var(--bg);
-      text-decoration:none;
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+    .btn:active{ transform: translateY(0); }
+
+    .btn-primary{
+      border-color: rgba(61,214,198,0.42);
+      background: linear-gradient(180deg, rgba(61,214,198,0.20), rgba(61,214,198,0.10));
+    }
+    .btn-primary:hover{
+      border-color: rgba(61,214,198,0.62);
+      background: linear-gradient(180deg, rgba(61,214,198,0.24), rgba(61,214,198,0.12));
     }
 
-    .btn.secondary{
-      border-color: var(--line);
-      background: var(--soft);
-      color: var(--text);
+    .btn-disabled{
+      opacity: 0.62;
+      cursor: not-allowed;
+      transform:none !important;
     }
-    .btn.secondary:hover{
-      background: #efefef;
-      color: var(--text);
-    }
-
-    main{ padding-top: 26px; }
 
     .grid{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 18px;
-      align-items:start;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 16px;
     }
 
     .card{
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px 18px 16px;
-      background: #fff;
-      box-shadow: var(--shadow);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      padding: 18px;
     }
 
-    h2{
-      font-size: 14px;
-      margin: 0 0 12px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
+    .card h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .card p{
+      margin: 0;
       color: var(--muted);
-      font-weight: 600;
+      line-height: 1.6;
+      font-size: 14.5px;
     }
 
-    .card p{ margin: 0 0 10px; color: var(--text); }
-    .card p.muted{ color: var(--muted); }
     .list{
       margin: 10px 0 0;
       padding-left: 18px;
-      color: var(--text);
-    }
-    .list li{ margin: 6px 0; }
-
-    .note{
-      margin-top: 12px;
-      padding: 12px 12px;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 12px;
       color: var(--muted);
-      font-size: 13px;
+      line-height: 1.7;
+      font-size: 14.5px;
     }
 
-    .divider{
-      height:1px; background:var(--line);
-      margin: 16px 0;
-    }
-
-    .podcasts a{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding: 10px 10px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: #fff;
-      margin-bottom: 10px;
-      text-decoration:none;
-      color: var(--text);
-      transition: .15s ease;
-    }
-    .podcasts a:hover{
-      border-color: #cfcfcf;
-      box-shadow: 0 8px 22px rgba(0,0,0,.06);
-      text-decoration:none;
-    }
-    .pill{
-      font-size: 11px;
-      border: 1px solid var(--line);
-      background: var(--soft);
-      color: var(--muted);
-      padding: 4px 8px;
-      border-radius: 999px;
-      flex: 0 0 auto;
-      margin-top: 1px;
-    }
-    .podMeta{
-      display:flex;
-      flex-direction:column;
-      gap: 2px;
-      min-width:0;
-    }
-    .podTitle{
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 1.25;
-      margin: 0;
-    }
-    .podDesc{
-      color: var(--muted);
-      font-size: 13px;
-      margin: 0;
-    }
-
-    footer{
-      margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-      display:flex;
-      justify-content:space-between;
-      gap: 16px;
-      flex-wrap:wrap;
-    }
-
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    .footer{
+      margin-top: 18px;
+      padding: 18px 2px 0;
+      color: rgba(255,255,255,0.55);
       font-size: 12.5px;
-      color: var(--muted);
+      line-height: 1.5;
+      text-align: left;
     }
 
-    /* Responsive */
-    @media (max-width: 840px){
-      .grid{ grid-template-columns: 1fr; }
-      .metaBox{ text-align:left; white-space: normal; }
-      h1{ font-size: 38px; }
+    .line{
+      height: 1px;
+      background: rgba(255,255,255,0.10);
+      margin: 16px 0 0;
     }
+
+    /* Stabil mobilon is */
     @media (max-width: 520px){
-      h1{ font-size: 34px; }
-      .logo{ width: 48px; height: 48px; border-radius: 12px; }
-      .wrap{ padding-top: 34px; }
+      .hero-inner{ padding: 20px; }
+      .pill{ display:none; }
+      .logo{ height: 40px; }
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <header>
+    <div class="topbar">
       <div class="brand">
-        <div class="logoRow">
-            <div class="logo" aria-label="OKN logó">
-              <img src="okn-logo.png" alt="OKN logó">
-            </div>
+        <!-- LOGÓ: pontos fájlnév, kötőjellel -->
+        <img class="logo" src="assets/OKN-logo.png" alt="OKN logó">
+        <div class="brand-title">
+          <b>Oktatási Közös Nevező</b>
+          <span>Állampolgári összegzés</span>
+        </div>
+      </div>
 
-          <div class="titleBlock">
-            <div class="kicker">Állampolgári projekt</div>
-            <h1>Oktatási Közös Nevező</h1>
-            <p class="subtitle">
-              Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához.
+      <div class="pill" aria-label="Időszak">
+        2024–2025 · civil projekt
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Oktatási Közös Nevező</h1>
+        <p class="lead">
+          Egy nyilvános, állampolgári visszajelzésekre épülő összegzés az oktatás kihívásairól,
+          megoldási irányairól és rendszerszintű elakadásairól. A dokumentum nem rangsorol, nem priorizál
+          és nem fogalmaz meg szakpolitikai ajánlásokat — az észlelt mintázatokat teszi visszakövethetővé.
+        </p>
+
+        <div class="cta-row">
+          <!-- Később: cseréld a href-et a PDF-re, pl. href="assets/oktatasi-kozos-nevezo.pdf" -->
+          <a class="btn btn-primary btn-disabled" href="#" onclick="return false;">
+            Dokumentum letöltése (hamarosan)
+          </a>
+
+          <!-- Kapcsolat -->
+          <a class="btn" href="mailto:magyaroktatas@proton.me">
+            Kapcsolat: magyaroktatas@proton.me
+          </a>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h2>Mi van a dokumentumban?</h2>
+            <p>
+              (1) a kihívástérképre érkezett megoldási javaslatok összegzése, valamint
+              (2) az állampolgárok által felvetett további problémák és a hozzájuk kapcsolt megoldások.
             </p>
+          </div>
 
-            <div class="heroActions">
-              <!-- PDF: majd ha kész, töltsd fel a repo gyökerébe pl. okn_2026.pdf néven,
-                   és itt cseréld a href-et arra. -->
-              <a class="btn secondary" href="#" aria-disabled="true" onclick="return false;">
-                Dokumentum letöltése — hamarosan
-              </a>
-
-              <!-- Kapcsolat: írd át az e-mailt a sajátodra -->
-              <a class="btn" href="mailto:magyaroktatas@proton.me">
-                Kapcsolat
-              </a>
-            </div>
+          <div class="card">
+            <h2>Podcastok</h2>
+            <p>Ide elég linkeket betenni. Ha kész vagy, másold be a konkrét URL-eket.</p>
+            <ul class="list">
+              <li><a href="#" onclick="return false;">OKN podcast epizód 1 — link hamarosan</a></li>
+              <li><a href="#" onclick="return false;">OKN podcast epizód 2 — link hamarosan</a></li>
+              <li><a href="#" onclick="return false;">OKN podcast epizód 3 — link hamarosan</a></li>
+            </ul>
           </div>
         </div>
 
-        <div class="metaBox">
-          <div>Publikálás: <strong>2026</strong></div>
-          <span class="small">Hivatkozás: <span class="mono">oktatásiközösnevező.hu</span></span>
+        <div class="line"></div>
+        <div class="footer">
+          © Oktatási Közös Nevező · A tartalom nyilvános, hivatkozással szabadon megosztható. <br>
+          (Ezt a sort később igazítsd az impresszum / licenc szerint.)
         </div>
       </div>
-    </header>
-
-    <main>
-      <div class="grid">
-
-        <!-- LEFT COLUMN -->
-        <section class="card">
-          <h2>Miről szól?</h2>
-          <p>
-            Ez az oldal az <strong>Oktatási Közös Nevező (OKN)</strong> projekt eredményanyagához ad rövid, könnyen
-            megosztható hozzáférést. A dokumentum állampolgári visszajelzésekből építkezik: a problémalátási mintázatokat,
-            a megoldási irányokat és a visszatérő rendszerszintű elakadásokat teszi áttekinthetővé.
-          </p>
-
-          <div class="divider"></div>
-
-          <h2>Mire használható?</h2>
-          <ul class="list">
-            <li>Gyors tájékozódásra arról, hogy a résztvevők mit tartanak a rendszer fő elakadásainak.</li>
-            <li>Gondolkodási alapként szakpolitikai, szakmai és civil egyeztetésekhez.</li>
-            <li>Visszakövethető, strukturált gyűjtésként további munkához és vitához.</li>
-          </ul>
-
-          <div class="note">
-            Az összegzések nem rangsorolnak és nem priorizálnak: céljuk a láthatóvá tétel és a rendszerezés.
-          </div>
-        </section>
-
-        <!-- RIGHT COLUMN -->
-        <aside class="card">
-          <h2>Podcastok (válogatás)</h2>
-
-          <div class="podcasts">
-            <!-- Csak cseréld a href-et a saját linkjeidre (YouTube, Spotify, Apple, stb.) -->
-            <a href="#" onclick="return false;">
-              <span class="pill">OKN</span>
-              <span class="podMeta">
-                <span class="podTitle">Oktatási Közös Nevező — podcast epizódok</span>
-                <span class="podDesc">Linkek hamarosan (YouTube/Spotify)</span>
-              </span>
-            </a>
-
-            <a href="#" onclick="return false;">
-              <span class="pill">Téma</span>
-              <span class="podMeta">
-                <span class="podTitle">Pedagógusok helyzete — beszélgetés</span>
-                <span class="podDesc">Helyőrző link (később cseréld a valós URL-re)</span>
-              </span>
-            </a>
-
-            <a href="#" onclick="return false;">
-              <span class="pill">Téma</span>
-              <span class="podMeta">
-                <span class="podTitle">Diákság problémái — tervezett epizód</span>
-                <span class="podDesc">Helyőrző link</span>
-              </span>
-            </a>
-          </div>
-
-          <div class="divider"></div>
-
-          <h2>Kapcsolat</h2>
-          <p class="muted" style="margin:0 0 10px;">
-            Észrevétel, kiegészítés, együttműködés:
-          </p>
-          <p style="margin:0;">
-            <a href="mailto:magyaroktatas@proton.me"><strong>magyaroktatas@proton.me</strong></a>
-          </p>
-
-          <div class="note">
-            Tipp: ha később beágyaznád a YouTube-videót, ide kerülhet egy „Bevezető videó” blokk.
-          </div>
-        </aside>
-
-      </div>
-
-      <footer>
-        <div>© Oktatási Közös Nevező (OKN)</div>
-        <div class="mono">Egylapos kiadvány-oldal • GitHub Pages</div>
-      </footer>
-    </main>
+    </section>
   </div>
 </body>
 </html>
-```
