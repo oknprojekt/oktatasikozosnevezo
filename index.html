@@ -1,70 +1,407 @@
-<!DOCTYPE html>
+Szuper. Akkor itt egy **B-verziós, végleges(ebb) szerkezetű**, kiadvány-hangulatú **egyoldalas** `index.html` (CSS-sel együtt), benne **Podcast szekció csak linkekkel** (előre bekészítve).
+
+Másold be a GitHub repódban az `index.html`-be, majd `Commit changes`, és frissíts (Ctrl+F5).
+
+```html
+<!doctype html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oktatási Közös Nevező</title>
-<style>
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    background: #f7f8fa;
-    color: #111;
-    text-align: center;
-}
-.container {
-    max-width: 700px;
-    margin: 80px auto;
-    padding: 20px;
-}
-.logo {
-    max-width: 120px;
-    margin-bottom: 30px;
-}
-h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-p {
-    font-size: 18px;
-    line-height: 1.6;
-}
-.button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 14px 28px;
-    background: #111;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-}
-.footer {
-    margin-top: 60px;
-    font-size: 14px;
-    color: #666;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oktatási Közös Nevező — állampolgári visszajelzések</title>
+
+  <!-- Typography: publication-like headings + clean body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --text: #141414;
+      --muted: #5b5b5b;
+      --line: #e7e7e7;
+      --soft: #f6f6f6;
+      --accent: #1f4b99; /* finom, „szakmai” kék — ha nem kell, átírható feketébbre */
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --radius: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.55;
+    }
+
+    a{ color:var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 20px 72px;
+    }
+
+    header{
+      padding: 18px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 20px;
+    }
+
+    .logoRow{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .logo{
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    /* Ha van logófájl: tedd a repo gyökerébe pl. okn-logo.png néven, és írd át src-t */
+    .logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+
+    .titleBlock{ min-width:0; }
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 2px 0 8px;
+    }
+    h1{
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 600;
+      font-size: 44px;
+      line-height: 1.05;
+      margin: 0 0 10px;
+    }
+    .subtitle{
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    .metaBox{
+      text-align:right;
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .metaBox .small{ display:block; margin-top:6px; }
+
+    .heroActions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+      margin-top: 18px;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--text);
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration:none;
+      transition: .15s ease;
+    }
+    .btn:hover{
+      background: var(--text);
+      color: var(--bg);
+      text-decoration:none;
+    }
+
+    .btn.secondary{
+      border-color: var(--line);
+      background: var(--soft);
+      color: var(--text);
+    }
+    .btn.secondary:hover{
+      background: #efefef;
+      color: var(--text);
+    }
+
+    main{ padding-top: 26px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items:start;
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    h2{
+      font-size: 14px;
+      margin: 0 0 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .card p{ margin: 0 0 10px; color: var(--text); }
+    .card p.muted{ color: var(--muted); }
+    .list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--text);
+    }
+    .list li{ margin: 6px 0; }
+
+    .note{
+      margin-top: 12px;
+      padding: 12px 12px;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .divider{
+      height:1px; background:var(--line);
+      margin: 16px 0;
+    }
+
+    .podcasts a{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      margin-bottom: 10px;
+      text-decoration:none;
+      color: var(--text);
+      transition: .15s ease;
+    }
+    .podcasts a:hover{
+      border-color: #cfcfcf;
+      box-shadow: 0 8px 22px rgba(0,0,0,.06);
+      text-decoration:none;
+    }
+    .pill{
+      font-size: 11px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      color: var(--muted);
+      padding: 4px 8px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+    .podMeta{
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
+      min-width:0;
+    }
+    .podTitle{
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.25;
+      margin: 0;
+    }
+    .podDesc{
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    footer{
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap:wrap;
+    }
+
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 840px){
+      .grid{ grid-template-columns: 1fr; }
+      .metaBox{ text-align:left; white-space: normal; }
+      h1{ font-size: 38px; }
+    }
+    @media (max-width: 520px){
+      h1{ font-size: 34px; }
+      .logo{ width: 48px; height: 48px; border-radius: 12px; }
+      .wrap{ padding-top: 34px; }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logoRow">
+            <div class="logo" aria-label="OKN logó">
+              <img src="okn-logo.png" alt="OKN logó">
+            </div>
 
-<div class="container">
-    <img src="logo.png" alt="OKN Logo" class="logo">
-    <h1>Oktatási Közös Nevező</h1>
-    <p>
-        Az Oktatási Közös Nevező egy civil kezdeményezés, amely állampolgári
-        visszajelzések alapján térképezi fel a magyar oktatási rendszer kihívásait
-        és a hozzájuk kapcsolódó megoldási javaslatokat.
-    </p>
+          <div class="titleBlock">
+            <div class="kicker">Állampolgári projekt</div>
+            <h1>Oktatási Közös Nevező</h1>
+            <p class="subtitle">
+              Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához.
+            </p>
 
-    <a class="button" href="OKN_dokumentum.pdf" download>
-        Dokumentum letöltése — hamarosan
-    </a>
+            <div class="heroActions">
+              <!-- PDF: majd ha kész, töltsd fel a repo gyökerébe pl. okn_2026.pdf néven,
+                   és itt cseréld a href-et arra. -->
+              <a class="btn secondary" href="#" aria-disabled="true" onclick="return false;">
+                Dokumentum letöltése — hamarosan
+              </a>
 
-    <div class="footer">
-        Kapcsolat: magyaroktatas@proton.me
-    </div>
-</div>
+              <!-- Kapcsolat: írd át az e-mailt a sajátodra -->
+              <a class="btn" href="mailto:magyaroktatas@proton.me">
+                Kapcsolat
+              </a>
+            </div>
+          </div>
+        </div>
 
+        <div class="metaBox">
+          <div>Publikálás: <strong>2026</strong></div>
+          <span class="small">Hivatkozás: <span class="mono">oktatásiközösnevező.hu</span></span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="grid">
+
+        <!-- LEFT COLUMN -->
+        <section class="card">
+          <h2>Miről szól?</h2>
+          <p>
+            Ez az oldal az <strong>Oktatási Közös Nevező (OKN)</strong> projekt eredményanyagához ad rövid, könnyen
+            megosztható hozzáférést. A dokumentum állampolgári visszajelzésekből építkezik: a problémalátási mintázatokat,
+            a megoldási irányokat és a visszatérő rendszerszintű elakadásokat teszi áttekinthetővé.
+          </p>
+
+          <div class="divider"></div>
+
+          <h2>Mire használható?</h2>
+          <ul class="list">
+            <li>Gyors tájékozódásra arról, hogy a résztvevők mit tartanak a rendszer fő elakadásainak.</li>
+            <li>Gondolkodási alapként szakpolitikai, szakmai és civil egyeztetésekhez.</li>
+            <li>Visszakövethető, strukturált gyűjtésként további munkához és vitához.</li>
+          </ul>
+
+          <div class="note">
+            Az összegzések nem rangsorolnak és nem priorizálnak: céljuk a láthatóvá tétel és a rendszerezés.
+          </div>
+        </section>
+
+        <!-- RIGHT COLUMN -->
+        <aside class="card">
+          <h2>Podcastok (válogatás)</h2>
+
+          <div class="podcasts">
+            <!-- Csak cseréld a href-et a saját linkjeidre (YouTube, Spotify, Apple, stb.) -->
+            <a href="#" onclick="return false;">
+              <span class="pill">OKN</span>
+              <span class="podMeta">
+                <span class="podTitle">Oktatási Közös Nevező — podcast epizódok</span>
+                <span class="podDesc">Linkek hamarosan (YouTube/Spotify)</span>
+              </span>
+            </a>
+
+            <a href="#" onclick="return false;">
+              <span class="pill">Téma</span>
+              <span class="podMeta">
+                <span class="podTitle">Pedagógusok helyzete — beszélgetés</span>
+                <span class="podDesc">Helyőrző link (később cseréld a valós URL-re)</span>
+              </span>
+            </a>
+
+            <a href="#" onclick="return false;">
+              <span class="pill">Téma</span>
+              <span class="podMeta">
+                <span class="podTitle">Diákság problémái — tervezett epizód</span>
+                <span class="podDesc">Helyőrző link</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="divider"></div>
+
+          <h2>Kapcsolat</h2>
+          <p class="muted" style="margin:0 0 10px;">
+            Észrevétel, kiegészítés, együttműködés:
+          </p>
+          <p style="margin:0;">
+            <a href="mailto:magyaroktatas@proton.me"><strong>magyaroktatas@proton.me</strong></a>
+          </p>
+
+          <div class="note">
+            Tipp: ha később beágyaznád a YouTube-videót, ide kerülhet egy „Bevezető videó” blokk.
+          </div>
+        </aside>
+
+      </div>
+
+      <footer>
+        <div>© Oktatási Közös Nevező (OKN)</div>
+        <div class="mono">Egylapos kiadvány-oldal • GitHub Pages</div>
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
+```
+
+## Következő két kérdés (hogy jól kössük össze a dizájnt a kiadvánnyal)
+
+1. A borítód fő színe inkább **kék** (mint fent), vagy inkább maradjunk **teljesen fekete-szürke** akcentus nélkül?
+2. A podcast-linkekhez küldesz majd 3–8 konkrét URL-t? Ha igen, ide be is illesztem “szépen”, címmel és rövid alcímmel.
+
+Ha most csak egy dolgot csinálsz: **állíts be logót** (ha van), vagy hagyd a placeholdert — így is teljesen vállalható, dokumentumszerű.
