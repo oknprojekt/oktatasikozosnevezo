@@ -9,7 +9,7 @@
 <style>
 body{
   margin:0;
-  font-family: 'Inter', sans-serif;
+  font-family:'Inter', sans-serif;
   background:#fff;
   color:#222;
   line-height:1.7;
@@ -23,7 +23,7 @@ body{
 
 header{
   text-align:center;
-  padding:30px 20px 0;
+  padding:30px 20px 10px;
 }
 
 header img{
@@ -33,26 +33,21 @@ header img{
 
 h1{
   font-size:26px;
-  margin-top:25px;
-  margin-bottom:3px;
+  margin-top:20px;
+  margin-bottom:6px;
   font-weight:700;
   letter-spacing:1px;
 }
 
 .subtitle{
   font-size:20px;
-  margin-top:0px;
+  margin:0 auto;
   color:#222;
-  max-width: 100%;
-  margin-left:auto;
-  margin-right:auto;
-  /* PC-n egy sor */
-  white-space: nowrap;
+  white-space:nowrap; /* PC-n egy sor */
 }
-  
+
 .section{
-  margin-top:25px;
-  margin-bottom:20px;
+  margin-top:40px;
 }
 
 .section h2{
@@ -64,14 +59,13 @@ h1{
   position:relative;
 }
 
-/* FULL-WIDTH csík a cím alatt (mint a footer csíkja) */
+/* Stabil teljes szélességű csík */
 .section h2::after{
   content:"";
   position:absolute;
-  left:50%;
+  left:0;
+  right:0;
   bottom:0;
-  width:100vw;
-  transform:translateX(-50%);
   border-bottom:1px solid #e5e5e5;
 }
 
@@ -81,19 +75,20 @@ h1{
 }
 
 .button{
-  display: block;
-  width: fit-content;
-  margin: 30px auto 0 auto; /* Ez teszi középre */
+  display:block;
+  width:fit-content;
+  margin:30px auto 0;
   padding:14px 28px;
   background:#000;
   color:#fff;
   text-decoration:none;
-  margin-top:25px;
   font-size:15px;
   letter-spacing:0.5px;
 }
 
-.button:hover{ background:#333; }
+.button:hover{
+  background:#333;
+}
 
 .video-wrapper{
   position:relative;
@@ -106,13 +101,34 @@ h1{
 
 .video-wrapper iframe{
   position:absolute;
-  top:0; left:0;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
 }
 
+/* Kapcsolat */
+.contact-section{
+  margin-top:40px;
+}
+
+.contact-email{
+  margin:15px 0 0 0;
+  text-align:center;
+}
+
+.contact-email a{
+  color:#000;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.contact-email a:hover{
+  text-decoration:underline;
+}
+
 footer{
-  margin-top:90px;
+  margin-top:80px;
   padding:40px 20px;
   text-align:center;
   font-size:14px;
@@ -120,29 +136,21 @@ footer{
   border-top:1px solid #e5e5e5;
 }
 
-.contact-section {
-    margin-top: 30px;
-    margin-bottom: 10px;
-}
-
-.contact-email {
-    margin-bottom: 0;
-    text-align: center !important;
-    margin-top: 20px;
-    padding-top: 0;
-    border-top: none;
-    text-decoration: none;
-    color: #000;
+/* Mobil */
+@media (max-width:900px){
+  .subtitle{
+    white-space:normal;
+  }
 }
 
 @media (max-width:600px){
-  h1{ font-size:22px; }
-  .subtitle{ 
-    white-space: normal;
-    font-size:16px; 
-    line-height:1.4; 
+  h1{
+    font-size:22px;
   }
-  .section h2{ font-size:18px; }
+  .subtitle{
+    font-size:16px;
+    line-height:1.4;
+  }
 }
 </style>
 </head>
@@ -152,8 +160,9 @@ footer{
 <header>
   <img src="assets/OKN-logo.png" alt="Oktatási Közös Nevező logó">
   <h1>OKTATÁSI KÖZÖS NEVEZŐ</h1>
-  <div class="subtitle"> Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához</div>
-
+  <div class="subtitle">
+    Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához
+  </div>
 </header>
 
 <div class="container">
@@ -161,13 +170,25 @@ footer{
   <div class="section">
     <h2>A projektről</h2>
 
-    <p>Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés. Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá, és az ezekre érkező állampolgári megoldási javaslatokat rendszerezze.</p>
+    <p>
+    Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés. 
+    Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá, 
+    és az ezekre érkező állampolgári megoldási javaslatokat rendszerezze.
+    </p>
 
-    <p>A projekt alapját egy közel kétszáz elemből álló kihívástérkép adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések. Az adatgyűjtés önkéntes és nem reprezentatív volt; a dokumentum nem rangsorol és nem fogalmaz meg szakpolitikai ajánlásokat.</p>
+    <p>
+    A projekt alapját egy közel kétszáz elemből álló kihívástérkép adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések. 
+    Az adatgyűjtés önkéntes és nem reprezentatív volt; a dokumentum nem rangsorol és nem fogalmaz meg szakpolitikai ajánlásokat.
+    </p>
 
-    <p>Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat, valamint azokat a rendszerszintű elakadási pontokat, amelyek az állampolgári válaszokból kirajzolódnak.</p>
+    <p>
+    Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat, 
+    valamint azokat a rendszerszintű elakadási pontokat, amelyek az állampolgári válaszokból kirajzolódnak.
+    </p>
 
-    <p>Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáért felelősen kívánnak tenni.</p>
+    <p>
+    Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáért felelősen kívánnak tenni.
+    </p>
 
     <a href="OKN_2026.pdf" class="button" target="_blank">
       A teljes dokumentum letöltése (PDF)
@@ -187,22 +208,21 @@ footer{
       </iframe>
     </div>
 
-    <p style="margin:3px 0 0 0;">
-      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" style="text-decoration:none; font-weight:450;">
+    <p style="margin:8px 0 0 0; text-align:center;">
+      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" style="text-decoration:none; font-weight:500;">
         Teljes playlist megnyitása YouTube-on →
       </a>
     </p>
   </div>
 
-<div class="section contact-section">
+  <div class="section contact-section">
     <h2>Kapcsolat</h2>
     <p class="contact-email">
-        <a href="mailto:magyaroktatas@proton.me">
-            magyaroktatas@proton.me
-        </a>
+      <a href="mailto:magyaroktatas@proton.me">
+        magyaroktatas@proton.me
+      </a>
     </p>
-</div>
-
+  </div>
 
 </div>
 
