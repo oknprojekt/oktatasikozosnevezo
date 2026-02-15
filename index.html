@@ -41,9 +41,11 @@ h1{
   font-size:18px;
   margin-top:10px;
   color:#555;
-  max-width:700px;
+  max-width: 100%;
   margin-left:auto;
   margin-right:auto;
+  /* PC-n egy sor */
+  white-space: nowrap;
 }
 
 .section{
@@ -56,7 +58,7 @@ h1{
   margin:0 0 25px 0;
   padding-bottom:12px;
   font-weight:700;
-  text-align:left;
+  text-align:center;
   position:relative;
 }
 
@@ -116,7 +118,11 @@ footer{
 
 @media (max-width:600px){
   h1{ font-size:22px; }
-  .subtitle{ font-size:16px; line-height:1.4; }
+  .subtitle{ 
+    white-space: normal;
+    font-size:16px; 
+    line-height:1.4; 
+  }
   .section h2{ font-size:18px; }
 }
 </style>
@@ -127,10 +133,8 @@ footer{
 <header>
   <img src="assets/OKN-logo.png" alt="Oktatási Közös Nevező logó">
   <h1>OKTATÁSI KÖZÖS NEVEZŐ</h1>
-  <div class="subtitle">
-    Állampolgári visszajelzések és megoldási javaslatok
-    a magyar oktatási rendszer megújításához
-  </div>
+  <div class="subtitle"> Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához</div>
+
 </header>
 
 <div class="container">
