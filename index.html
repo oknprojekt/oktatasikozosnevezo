@@ -18,7 +18,7 @@ body{
 .container{
   max-width:900px;
   margin:auto;
-  padding:0 20px 40px;
+  padding:0 20px 12px; /* <<< KISEBB alsó padding */
 }
 
 header{
@@ -53,7 +53,7 @@ h1{
 
 .section h2{
   font-size:18px;
-  margin:0 0 25px 0;
+  margin:0 0 18px 0; /* <<< kicsit feszesebb */
   padding-bottom:12px;
   font-weight:700;
   text-align:center;
@@ -108,13 +108,24 @@ h1{
   height:100%;
 }
 
-/* Kapcsolat */
+/* Link stílus a szövegben (kihívástérkép) */
+.inline-link{
+  color:#222;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.inline-link:hover{
+  opacity:0.8;
+}
+
+/* Kapcsolat – itt húzzuk össze a réseket */
 .contact-section{
-  margin-top:40px;
+  margin-top:30px;   /* <<< kisebb */
+  margin-bottom:0;   /* <<< ne legyen extra alul */
 }
 
 .contact-email{
-  margin:15px 0 0 0;
+  margin:10px 0 0 0; /* <<< kisebb felső margó */
   text-align:center;
 }
 
@@ -123,6 +134,7 @@ h1{
   color:#000;
   text-decoration:none;
   font-weight:500;
+  padding:2px 0;     /* <<< picit “kompaktabb” */
 }
 
 .contact-email a:hover{
@@ -130,8 +142,8 @@ h1{
 }
 
 footer{
-  margin-top:40px;
-  padding:40px 20px;
+  margin-top:18px;      /* <<< EZ volt a nagy rés egyik fő oka */
+  padding:28px 20px;    /* <<< kicsit kisebb footer padding */
   text-align:center;
   font-size:14px;
   color:#666;
@@ -173,18 +185,22 @@ footer{
     <h2>A projektről</h2>
 
     <p>
-    Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés. 
-    Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá, 
+    Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés.
+    Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá,
     és az ezekre érkező állampolgári megoldási javaslatokat rendszerezze.
     </p>
 
     <p>
-    A projekt alapját egy közel kétszáz elemből álló kihívástérkép adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések. 
+    A projekt alapját egy közel kétszáz elemből álló
+    <a class="inline-link" href="https://drive.google.com/drive/folders/1Tca8hR5E0MipCjCHBbWd47GQwifMmFZH" target="_blank" rel="noopener">
+      kihívástérkép
+    </a>
+    adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések.
     Az adatgyűjtés önkéntes és nem reprezentatív volt; a dokumentum nem rangsorol és nem fogalmaz meg szakpolitikai ajánlásokat.
     </p>
 
     <p>
-    Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat, 
+    Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat,
     valamint azokat a rendszerszintű elakadási pontokat, amelyek az állampolgári válaszokból kirajzolódnak.
     </p>
 
@@ -211,7 +227,7 @@ footer{
     </div>
 
     <p style="margin:8px 0 0 0; text-align:center;">
-      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" style="text-decoration:none; font-weight:500;">
+      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" rel="noopener" style="text-decoration:none; font-weight:500;">
         Teljes playlist megnyitása YouTube-on →
       </a>
     </p>
@@ -220,9 +236,7 @@ footer{
   <div class="section contact-section">
     <h2>Kapcsolat</h2>
     <div class="contact-email">
-      <a href="mailto:magyaroktatas@proton.me">
-        magyaroktatas@proton.me
-      </a>
+      <a href="mailto:magyaroktatas@proton.me">magyaroktatas@proton.me</a>
     </div>
   </div>
 
