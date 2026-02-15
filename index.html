@@ -6,162 +6,145 @@
 <title>Oktatási Közös Nevező</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: #ffffff;
-        color: #1a1a1a;
-        line-height: 1.6;
-    }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #222;
+    line-height: 1.6;
+}
 
-    .container {
-        max-width: 820px;
-        margin: 0 auto;
-        padding: 60px 24px;
-        text-align: center;
-    }
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
 
-    .logo {
-        max-width: 220px;
-        height: auto;
-        margin-bottom: 40px;
-    }
+header {
+    text-align: center;
+    padding: 40px 20px;
+}
 
-    h1 {
-        font-size: 32px;
-        font-weight: 600;
-        margin-bottom: 20px;
-    }
+header img {
+    max-width: 220px;
+    height: auto;
+}
 
-    p.lead {
-        font-size: 18px;
-        color: #444;
-        margin-bottom: 40px;
-    }
+h1 {
+    font-size: 28px;
+    margin-top: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
-    .button {
-        display: inline-block;
-        padding: 14px 28px;
-        background-color: #111;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 6px;
-        font-size: 16px;
-        transition: background-color 0.2s ease;
-    }
+.subtitle {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #555;
+}
 
-    .button:hover {
-        background-color: #333;
-    }
+.section {
+    margin-top: 60px;
+}
 
-    .section {
-        margin-top: 80px;
-        text-align: left;
-    }
+.section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e5e5e5;
+    padding-bottom: 10px;
+}
 
-    .section h2 {
-        font-size: 20px;
-        margin-bottom: 16px;
-    }
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 20px;
+}
 
-    .podcast-links a {
-        display: block;
-        margin-bottom: 8px;
-        color: #000;
-        text-decoration: none;
-    }
+.button:hover {
+    background-color: #444;
+}
 
-    .podcast-links a:hover {
-        text-decoration: underline;
-    }
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
 
-    footer {
-        margin-top: 80px;
-        font-size: 14px;
-        color: #666;
-        text-align: center;
-    }
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
-    @media (max-width: 600px) {
-        .container {
-            padding: 40px 20px;
-        }
-
-        h1 {
-            font-size: 26px;
-        }
-
-        p.lead {
-            font-size: 16px;
-        }
-    }
+footer {
+    margin-top: 80px;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #e5e5e5;
+}
 </style>
 
 </head>
-
 <body>
+
+<header>
+    <img src="assets/OKN-logo.png" alt="Oktatási Közös Nevező logó">
+    <h1>OKTATÁSI KÖZÖS NEVEZŐ</h1>
+    <div class="subtitle">
+        Állampolgári visszajelzések és megoldási javaslatok<br>
+        a magyar oktatási rendszer megújításához
+    </div>
+</header>
 
 <div class="container">
 
-    <!-- LOGO -->
-    <img src="assets/OKN-logo.png" alt="OKN logó" class="logo">
-
-    <!-- CÍM -->
-    <h1>Oktatási Közös Nevező</h1>
-
-    <!-- LEÍRÁS -->
-    <p class="lead">
-        Civil kezdeményezés a magyar oktatási rendszer állampolgári
-        visszajelzéseinek rendszerszintű összegzésére.
-    </p>
-
-    <!-- LETÖLTÉS -->
-    <a href="#" class="button">Dokumentum letöltése hamarosan</a>
-
-    <!-- PODCAST SZEKCIÓ -->
-<!-- VIDEÓK / PODCAST SZEKCIÓ -->
-    <section style="margin-top:60px; padding:40px 20px; background:#f8f9fa;">
-      <div style="max-width:1000px; margin:0 auto; text-align:center;">
-        
-        <h2 style="margin-bottom:30px;">Oktatási Közös Nevező – Podcast</h2>
-    
-        <!-- Playlist Player -->
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom:30px;">
-          <iframe 
-            src="https://www.youtube.com/embed/videoseries?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
-            title="Oktatási Közös Nevező Podcast Playlist"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-          </iframe>
-        </div>
-    
-        <!-- Mobilbarát külön playlist link -->
-        <p style="margin-bottom:20px;">
-          <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" style="text-decoration:none; font-weight:500;">
-            Teljes playlist megnyitása YouTube-on →
-          </a>
-        </p>
-    
-      </div>
-    </section>
-
-
-
-    <!-- KAPCSOLAT -->
     <div class="section">
-        <h2>Kapcsolat</h2>
+        <h2>A projektről</h2>
         <p>
-            magyaroktatas@proton.me
+        Az Oktatási Közös Nevező egy civil, önkéntes állampolgári kezdeményezés,
+        amely az oktatás kihívásait és megújítási irányait rendszerszintű,
+        strukturált formában kívánja láthatóvá tenni.
+        </p>
+
+        <a href="OKN_Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához.pdf" class="button" target="_blank">
+            A teljes dokumentum megtekintése (PDF)
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>Podcast</h2>
+
+        <div class="video-wrapper">
+            <iframe 
+                src="https://www.youtube.com/embed/videoseries?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
+                title="Oktatási Közös Nevező Podcast"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <p style="margin-top:20px;">
+        A teljes lejátszási lista mobilon és asztali nézetben is lapozható.
         </p>
     </div>
 
-    <footer>
-        © 2026 Oktatási Közös Nevező
-    </footer>
-
 </div>
+
+<footer>
+© 2026 Oktatási Közös Nevező  
+<br>
+Creative Commons BY-NC-ND 4.0
+</footer>
 
 </body>
 </html>
