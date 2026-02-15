@@ -15,10 +15,10 @@
   gtag('config', 'G-8CDHVQNC52');
 
   // --- OKN custom tracking helpers ---
-  function trackPdfDownload(fileName){
+  function trackPdfDownload(){
     gtag('event', 'pdf_download', {
       event_category: 'engagement',
-      event_label: fileName
+      event_label: 'assets/OKN_2026.pdf'
     });
   }
 
@@ -243,10 +243,10 @@ footer{
     Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáért felelősen kívánnak tenni.
     </p>
 
-    <a href="OKN_2026.pdf"
+    <a href="assets/OKN_2026.pdf"
        class="button"
        target="_blank"
-       onclick="trackPdfDownload('OKN_2026.pdf')">
+       onclick="trackPdfDownload()">
       A teljes dokumentum letöltése (PDF)
     </a>
   </div>
