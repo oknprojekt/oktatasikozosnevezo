@@ -6,196 +6,176 @@
 <title>Oktatási Közös Nevező</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #ffffff;
-    color: #222;
-    line-height: 1.7;
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:#fff;
+  color:#222;
+  line-height:1.7;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 0 20px 40px;
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:0 20px 40px;
 }
 
-header {
-    text-align: center;
-    padding: 30px 20px 0px 20px;
+header{
+  text-align:center;
+  padding:30px 20px 0;
 }
 
-header img {
-    max-width: 200px;
-    height: auto;
+header img{
+  max-width:200px;
+  height:auto;
 }
 
-h1 {
-    font-size: 26px;
-    margin-top: 25px;
-    font-weight: bold;
-    letter-spacing: 1px;
+h1{
+  font-size:26px;
+  margin-top:25px;
+  font-weight:700;
+  letter-spacing:1px;
 }
 
-.subtitle {
-    font-size: 18px;
-    margin-top: 10px;
-    color: #555;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+.subtitle{
+  font-size:18px;
+  margin-top:10px;
+  color:#555;
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-.section {
-    margin-top: 25px;
+.section{
+  margin-top:25px;
+  margin-bottom:20px;
 }
 
-.section h2 {
-    font-size: 20px;
-    margin-bottom: 25px;
-    padding-bottom: 10px;
-    font-weight: bold;
-    text-align: center;
-    position: relative;
+.section h2{
+  font-size:20px;
+  margin:0 0 25px 0;
+  padding-bottom:12px;
+  font-weight:700;
+  text-align:left;
+  position:relative;
 }
 
-.section h2::after {
-    content: "";
-    width: 200px;
-    height: 2px;
-    background: #e5e5e5;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-}
-.section p {
-    margin-bottom: 20px;
-    text-align: justify;
+/* FULL-WIDTH csík a cím alatt (mint a footer csíkja) */
+.section h2::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:100vw;
+  transform:translateX(-50%);
+  border-bottom:1px solid #e5e5e5;
 }
 
-.button {
-    display: inline-block;
-    padding: 14px 28px;
-    background-color: #000;
-    color: #fff;
-    text-decoration: none;
-    margin-top: 25px;
-    font-size: 15px;
-    letter-spacing: 0.5px;
+.section p{
+  margin:0 0 20px 0;
+  text-align:justify;
 }
 
-.button:hover {
-    background-color: #333;
+.button{
+  display:inline-block;
+  padding:14px 28px;
+  background:#000;
+  color:#fff;
+  text-decoration:none;
+  margin-top:25px;
+  font-size:15px;
+  letter-spacing:0.5px;
 }
 
-.video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    margin-top: 20px;
+.button:hover{ background:#333; }
+
+.video-wrapper{
+  position:relative;
+  padding-bottom:56.25%;
+  height:0;
+  overflow:hidden;
+  border:1px solid #ddd;
+  margin-top:20px;
 }
 
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.video-wrapper iframe{
+  position:absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
 }
 
-footer {
-    margin-top: 90px;
-    padding: 40px 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #666;
-    border-top: 1px solid #e5e5e5;
+footer{
+  margin-top:90px;
+  padding:40px 20px;
+  text-align:center;
+  font-size:14px;
+  color:#666;
+  border-top:1px solid #e5e5e5;
 }
 
-@media (max-width: 600px) {
-    h1 {
-        font-size: 22px;
-    }
-
-    .subtitle {
-        font-size: 16px;
-        line-height: 1.4;
-    }
-
-    .section h2 {
-        font-size: 18px;
-    }
+@media (max-width:600px){
+  h1{ font-size:22px; }
+  .subtitle{ font-size:16px; line-height:1.4; }
+  .section h2{ font-size:18px; }
 }
 </style>
-
 </head>
+
 <body>
 
 <header>
-    <img src="assets/OKN-logo.png" alt="Oktatási Közös Nevező logó">
-    <h1>OKTATÁSI KÖZÖS NEVEZŐ</h1>
-        <div class="subtitle">
-            Állampolgári visszajelzések és megoldási javaslatok
-            a magyar oktatási rendszer megújításához
-        </div>
-    
+  <img src="assets/OKN-logo.png" alt="Oktatási Közös Nevező logó">
+  <h1>OKTATÁSI KÖZÖS NEVEZŐ</h1>
+  <div class="subtitle">
+    Állampolgári visszajelzések és megoldási javaslatok
+    a magyar oktatási rendszer megújításához
+  </div>
 </header>
 
 <div class="container">
 
-    <div class="section">
-        <h2>A projektről</h2>
+  <div class="section">
+    <h2>A projektről</h2>
 
-        <p>
-        Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés. Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá, és az ezekre érkező állampolgári megoldási javaslatokat rendszerezze.
-        </p>
+    <p>Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés. Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá, és az ezekre érkező állampolgári megoldási javaslatokat rendszerezze.</p>
 
-        <p>
-        A projekt alapját egy közel kétszáz elemből álló kihívástérkép adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések. Az adatgyűjtés önkéntes és nem reprezentatív volt; a dokumentum nem rangsorol és nem fogalmaz meg szakpolitikai ajánlásokat.
-        </p>
+    <p>A projekt alapját egy közel kétszáz elemből álló kihívástérkép adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések. Az adatgyűjtés önkéntes és nem reprezentatív volt; a dokumentum nem rangsorol és nem fogalmaz meg szakpolitikai ajánlásokat.</p>
 
-        <p>
-        Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat, valamint azokat a rendszerszintű elakadási pontokat, amelyek az állampolgári válaszokból kirajzolódnak.
-        </p>
+    <p>Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat, valamint azokat a rendszerszintű elakadási pontokat, amelyek az állampolgári válaszokból kirajzolódnak.</p>
 
-        <p>
-        Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáról felelősen kívánnak tenni.
-        </p>
+    <p>Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáról felelősen kívánnak tenni.</p>
 
-        <a href="OKN_Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához.pdf" class="button" target="_blank">
-            A teljes dokumentum megtekintése (PDF)
-        </a>
+    <a href="OKN_Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához.pdf" class="button" target="_blank">
+      A teljes dokumentum megtekintése (PDF)
+    </a>
+  </div>
+
+  <div class="section">
+    <h2>Podcast</h2>
+
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
+        title="Oktatási Közös Nevező Podcast"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
 
-    <div class="section">
-        <h2>Podcast</h2>
-
-        <div class="video-wrapper">
-            <iframe 
-                src="https://www.youtube.com/embed/videoseries?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
-                title="Oktatási Közös Nevező Podcast"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-
-     <!-- Mobilbarát külön playlist link -->
-        <p style="margin-bottom:20px;">
-          <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" style="text-decoration:none; font-weight:500;">
-            Teljes playlist megnyitása YouTube-on →
-          </a>
-        </p>
+    <p style="margin:20px 0 0 0;">
+      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" style="text-decoration:none; font-weight:500;">
+        Teljes playlist megnyitása YouTube-on →
+      </a>
+    </p>
+  </div>
 
 </div>
 
 <footer>
-© 2026 Oktatási Közös Nevező  
-<br>
-Creative Commons BY-NC-ND 4.0
+  © 2026 Oktatási Közös Nevező<br>
+  Creative Commons BY-NC-ND 4.0
 </footer>
 
 </body>
