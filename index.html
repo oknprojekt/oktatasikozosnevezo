@@ -10,9 +10,31 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CDHVQNC52"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag(){ dataLayer.push(arguments); }
   gtag('js', new Date());
   gtag('config', 'G-8CDHVQNC52');
+
+  // --- OKN custom tracking helpers ---
+  function trackPdfDownload(fileName){
+    gtag('event', 'pdf_download', {
+      event_category: 'engagement',
+      event_label: fileName
+    });
+  }
+
+  function trackPodcastPlaylistClick(url){
+    gtag('event', 'podcast_playlist_click', {
+      event_category: 'engagement',
+      event_label: url
+    });
+  }
+
+  function trackChallengeMapClick(url){
+    gtag('event', 'kihivasterkep_click', {
+      event_category: 'engagement',
+      event_label: url
+    });
+  }
 </script>
 
 <style>
@@ -124,7 +146,7 @@ h1{
   font-weight:600;
 }
 .inline-link:hover{
-  color:#b00000;
+  color:#b0000;
 }
 
 /* Kapcsolat – itt húzzuk össze a réseket */
@@ -201,7 +223,11 @@ footer{
 
     <p>
     A projekt alapját egy közel kétszáz elemből álló
-    <a class="inline-link" href="https://drive.google.com/drive/folders/1Tca8hR5E0MipCjCHBbWd47GQwifMmFZH" target="_blank" rel="noopener">
+    <a class="inline-link"
+       href="https://drive.google.com/drive/folders/1Tca8hR5E0MipCjCHBbWd47GQwifMmFZH"
+       target="_blank"
+       rel="noopener"
+       onclick="trackChallengeMapClick(this.href)">
       kihívástérkép
     </a>
     adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések.
@@ -217,7 +243,10 @@ footer{
     Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáért felelősen kívánnak tenni.
     </p>
 
-    <a href="OKN_2026.pdf" class="button" target="_blank">
+    <a href="OKN_2026.pdf"
+       class="button"
+       target="_blank"
+       onclick="trackPdfDownload('OKN_2026.pdf')">
       A teljes dokumentum letöltése (PDF)
     </a>
   </div>
@@ -236,7 +265,11 @@ footer{
     </div>
 
     <p style="margin:8px 0 0 0; text-align:center;">
-      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj" target="_blank" rel="noopener" style="text-decoration:none; font-weight:500;">
+      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
+         target="_blank"
+         rel="noopener"
+         style="text-decoration:none; font-weight:500;"
+         onclick="trackPodcastPlaylistClick(this.href)">
         Teljes playlist megnyitása YouTube-on →
       </a>
     </p>
