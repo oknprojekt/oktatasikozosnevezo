@@ -11,60 +11,68 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #ffffff;
     color: #222;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: auto;
-    padding: 40px 20px;
+    padding: 40px 20px 60px 20px;
 }
 
 header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 60px 20px 40px 20px;
 }
 
 header img {
-    max-width: 220px;
+    max-width: 200px;
     height: auto;
 }
 
 h1 {
-    font-size: 28px;
-    margin-top: 20px;
+    font-size: 26px;
+    margin-top: 25px;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
 .subtitle {
-    font-size: 18px;
-    margin-top: 10px;
+    font-size: 17px;
+    margin-top: 12px;
     color: #555;
 }
 
 .section {
-    margin-top: 60px;
+    margin-top: 70px;
 }
 
 .section h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #e5e5e5;
+    font-size: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e5e5e5;
     padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.section p {
+    margin-bottom: 20px;
+    text-align: justify;
 }
 
 .button {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 14px 28px;
     background-color: #000;
     color: #fff;
     text-decoration: none;
-    margin-top: 20px;
+    margin-top: 25px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
 }
 
 .button:hover {
-    background-color: #444;
+    background-color: #333;
 }
 
 .video-wrapper {
@@ -73,6 +81,7 @@ h1 {
     height: 0;
     overflow: hidden;
     border: 1px solid #ddd;
+    margin-top: 20px;
 }
 
 .video-wrapper iframe {
@@ -84,12 +93,26 @@ h1 {
 }
 
 footer {
-    margin-top: 80px;
-    padding: 30px 20px;
+    margin-top: 90px;
+    padding: 40px 20px;
     text-align: center;
     font-size: 14px;
     color: #666;
     border-top: 1px solid #e5e5e5;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+
+    .section h2 {
+        font-size: 18px;
+    }
 }
 </style>
 
@@ -109,10 +132,21 @@ footer {
 
     <div class="section">
         <h2>A projektről</h2>
+
         <p>
-        Az Oktatási Közös Nevező egy civil, önkéntes állampolgári kezdeményezés,
-        amely az oktatás kihívásait és megújítási irányait rendszerszintű,
-        strukturált formában kívánja láthatóvá tenni.
+        Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés. Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá, és az ezekre érkező állampolgári megoldási javaslatokat rendszerezze.
+        </p>
+
+        <p>
+        A projekt alapját egy közel kétszáz elemből álló kihívástérkép adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések. Az adatgyűjtés önkéntes és nem reprezentatív volt; a dokumentum nem rangsorol és nem fogalmaz meg szakpolitikai ajánlásokat.
+        </p>
+
+        <p>
+        Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat, valamint azokat a rendszerszintű elakadási pontokat, amelyek az állampolgári válaszokból kirajzolódnak.
+        </p>
+
+        <p>
+        Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáról felelősen kívánnak tenni.
         </p>
 
         <a href="OKN_Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához.pdf" class="button" target="_blank">
