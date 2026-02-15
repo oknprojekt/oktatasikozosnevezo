@@ -6,48 +6,89 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <title>Oktatási Közös Nevező</title>
 
-<!-- Google tag (betöltődik, de csak consent után aktiváljuk) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8CDHVQNC52"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){ dataLayer.push(arguments); }
+  // ===== Cookie Consent + GA lazy-load (csak elfogadás után) =====
+  const GA_MEASUREMENT_ID = 'G-8CDHVQNC52';
+  const CONSENT_KEY = 'okn_cookie_consent_v1'; // localStorage kulcs
 
-function enableAnalytics(){
-  gtag('js', new Date());
-  gtag('config', 'G-8CDHVQNC52');
-  localStorage.setItem("okn_cookie_consent","accepted");
-  document.getElementById("cookie-banner").style.display="none";
-}
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
 
-window.onload = function(){
-  if(localStorage.getItem("okn_cookie_consent")==="accepted"){
-      enableAnalytics();
-  } else {
-      document.getElementById("cookie-banner").style.display="block";
+  function loadGoogleAnalytics(){
+    if (window.__gaLoaded) return;
+    window.__gaLoaded = true;
+
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_MEASUREMENT_ID);
+    document.head.appendChild(s);
+
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
   }
-};
 
-// --- Custom tracking ---
-function trackPdfDownload(){
-  gtag('event', 'pdf_download', {
-    event_category: 'engagement',
-    event_label: 'assets/OKN_2026.pdf'
-  });
-}
+  function getConsent(){
+    return localStorage.getItem(CONSENT_KEY); // 'accepted' | 'rejected' | null
+  }
 
-function trackPodcastPlaylistClick(url){
-  gtag('event', 'podcast_playlist_click', {
-    event_category: 'engagement',
-    event_label: url
-  });
-}
+  function acceptCookies(){
+    localStorage.setItem(CONSENT_KEY, 'accepted');
+    hideCookieBanner();
+    loadGoogleAnalytics();
+  }
 
-function trackChallengeMapClick(url){
-  gtag('event', 'kihivasterkep_click', {
-    event_category: 'engagement',
-    event_label: url
+  function rejectCookies(){
+    localStorage.setItem(CONSENT_KEY, 'rejected');
+    hideCookieBanner();
+  }
+
+  function showCookieBanner(){
+    const el = document.getElementById('cookie-banner');
+    if (el) el.style.display = 'block';
+  }
+
+  function hideCookieBanner(){
+    const el = document.getElementById('cookie-banner');
+    if (el) el.style.display = 'none';
+  }
+
+  // döntés logika
+  document.addEventListener('DOMContentLoaded', () => {
+    const consent = getConsent();
+    if (consent === 'accepted') {
+      loadGoogleAnalytics();
+      hideCookieBanner();
+    } else if (consent === 'rejected') {
+      hideCookieBanner();
+    } else {
+      showCookieBanner(); // még nem döntött
+    }
   });
-}
+
+  // ===== OKN custom tracking helpers =====
+  function trackPdfDownload(){
+    if (!window.__gaLoaded) return;
+    gtag('event', 'pdf_download', {
+      event_category: 'engagement',
+      event_label: 'assets/OKN_2026.pdf'
+    });
+  }
+
+  function trackPodcastPlaylistClick(url){
+    if (!window.__gaLoaded) return;
+    gtag('event', 'podcast_playlist_click', {
+      event_category: 'engagement',
+      event_label: url
+    });
+  }
+
+  function trackChallengeMapClick(url){
+    if (!window.__gaLoaded) return;
+    gtag('event', 'kihivasterkep_click', {
+      event_category: 'engagement',
+      event_label: url
+    });
+  }
 </script>
 
 <style>
@@ -72,32 +113,39 @@ header{
 
 header img{
   max-width:200px;
+  height:auto;
 }
 
 h1{
   font-size:26px;
-  margin:20px 0 6px;
+  margin-top:20px;
+  margin-bottom:6px;
   font-weight:700;
+  letter-spacing:1px;
 }
 
 .subtitle{
   font-size:20px;
   margin:0 auto;
-  white-space:nowrap;
+  color:#222;
+  white-space:nowrap; /* PC-n egy sor */
 }
 
 .section{
   margin-top:40px;
+  margin-bottom:10px;
 }
 
 .section h2{
   font-size:18px;
-  margin-bottom:18px;
+  margin:0 0 18px 0;
   padding-bottom:12px;
+  font-weight:700;
   text-align:center;
   position:relative;
 }
 
+/* Stabil teljes szélességű csík */
 .section h2::after{
   content:"";
   position:absolute;
@@ -108,7 +156,7 @@ h1{
 }
 
 .section p{
-  margin-bottom:20px;
+  margin:0 0 20px 0;
   text-align:justify;
 }
 
@@ -120,17 +168,11 @@ h1{
   background:#000;
   color:#fff;
   text-decoration:none;
+  font-size:15px;
+  letter-spacing:0.5px;
 }
 
-.button:hover{
-  background:#333;
-}
-
-.inline-link{
-  color:#8b0000;
-  text-decoration:none;
-  font-weight:600;
-}
+.button:hover{ background:#333; }
 
 .video-wrapper{
   position:relative;
@@ -143,14 +185,35 @@ h1{
 
 .video-wrapper iframe{
   position:absolute;
+  top:0; left:0;
   width:100%;
   height:100%;
-  top:0;
-  left:0;
 }
 
+/* Link stílus a szövegben (kihívástérkép) */
+.inline-link{
+  color:#8b0000;
+  text-decoration:none;
+  font-weight:600;
+}
+.inline-link:hover{
+  color:#b00000;
+}
+
+/* Kapcsolat */
+.contact-section{ margin-top:30px; margin-bottom:0; }
+.contact-email{ margin:10px 0 0 0; text-align:center; }
+.contact-email a{
+  display:inline-block;
+  color:#000;
+  text-decoration:none;
+  font-weight:500;
+  padding:2px 0;
+}
+.contact-email a:hover{ text-decoration:underline; }
+
 footer{
-  margin-top:30px;
+  margin-top:18px;
   padding:28px 20px;
   text-align:center;
   font-size:14px;
@@ -158,42 +221,85 @@ footer{
   border-top:1px solid #e5e5e5;
 }
 
-/* COOKIE BANNER */
-#cookie-banner{
-  display:none;
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#111;
-  color:#fff;
-  padding:15px 20px;
-  font-size:14px;
-  text-align:center;
-  z-index:9999;
+/* footer adatkezelés link finoman, a stílushoz igazítva */
+footer .footer-privacy{
+  display:block;
+  margin-top:10px;
+  font-size:12px;
 }
-
-#cookie-banner a{
-  color:#fff;
+footer .footer-privacy a{
+  color:#666;
   text-decoration:underline;
 }
-
-#cookie-banner button{
-  margin-left:15px;
-  padding:6px 14px;
-  background:#fff;
-  color:#000;
-  border:none;
-  cursor:pointer;
+footer .footer-privacy a:hover{
+  color:#333;
 }
 
+/* Mobil */
 @media (max-width:900px){
   .subtitle{ white-space:normal; }
 }
-
 @media (max-width:600px){
   h1{ font-size:22px; }
-  .subtitle{ font-size:16px; }
+  .subtitle{ font-size:16px; line-height:1.4; }
+}
+
+/* ===== Cookie banner (minimalista) ===== */
+#cookie-banner{
+  display:none; /* <<< EZ FONTOS: alapból rejtve */
+  position:fixed;
+  left:0; right:0; bottom:0;
+  background:rgba(255,255,255,0.96);
+  border-top:1px solid #e5e5e5;
+  padding:10px 14px;
+  z-index:9999;
+  font-size:12px;
+  color:#444;
+}
+
+.cookie-inner{
+  max-width:900px;
+  margin:0 auto;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.cookie-text{
+  line-height:1.35;
+}
+
+.cookie-actions{
+  display:flex;
+  gap:10px;
+  flex-shrink:0;
+}
+
+.cookie-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:8px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:12px;
+}
+.cookie-btn.primary{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+}
+.cookie-btn.primary:hover{ background:#333; border-color:#333; }
+.cookie-btn:hover{ border-color:#bbb; }
+
+@media (max-width:600px){
+  .cookie-inner{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .cookie-actions{
+    justify-content:flex-end;
+  }
 }
 </style>
 </head>
@@ -201,7 +307,7 @@ footer{
 <body>
 
 <header>
-  <img src="assets/OKN-logo.png">
+  <img src="assets/OKN-logo.png" alt="Oktatási Közös Nevező logó">
   <h1>OKTATÁSI KÖZÖS NEVEZŐ</h1>
   <div class="subtitle">
     Állampolgári visszajelzések és megoldási javaslatok a magyar oktatási rendszer megújításához
@@ -210,70 +316,99 @@ footer{
 
 <div class="container">
 
-<div class="section">
-<h2>A projektről</h2>
+  <div class="section">
+    <h2>A projektről</h2>
 
-<p>
-Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés.
-</p>
+    <p>
+      Az Oktatási Közös Nevező (OKN) 2024–2025 között megvalósult civil, önkéntes állampolgári kezdeményezés.
+      Célja az volt, hogy a magyar oktatási rendszer kihívásait strukturált formában tegye láthatóvá,
+      és az ezekre érkező állampolgári megoldási javaslatokat rendszerezze.
+    </p>
 
-<p>
-A projekt alapját egy közel kétszáz elemből álló
-<a class="inline-link"
-href="https://drive.google.com/drive/folders/1Tca8hR5E0MipCjCHBbWd47GQwifMmFZH"
-target="_blank"
-onclick="trackChallengeMapClick(this.href)">
-kihívástérkép</a> adta.
-</p>
+    <p>
+      A projekt alapját egy közel kétszáz elemből álló
+      <a class="inline-link"
+         href="https://drive.google.com/drive/folders/1Tca8hR5E0MipCjCHBbWd47GQwifMmFZH"
+         target="_blank"
+         rel="noopener"
+         onclick="trackChallengeMapClick(this.href)">
+        kihívástérkép
+      </a>
+      adta, amelyre nyitott kérdőíves formában érkeztek visszajelzések.
+      Az adatgyűjtés önkéntes és nem reprezentatív volt; a dokumentum nem rangsorol és nem fogalmaz meg szakpolitikai ajánlásokat.
+    </p>
 
-<a href="assets/OKN_2026.pdf"
-class="button"
-target="_blank"
-onclick="trackPdfDownload()">
-A teljes dokumentum letöltése (PDF)
-</a>
+    <p>
+      Az összegzés bemutatja a visszatérő problémalátási mintázatokat, javasolt megoldási irányokat,
+      valamint azokat a rendszerszintű elakadási pontokat, amelyek az állampolgári válaszokból kirajzolódnak.
+    </p>
 
-</div>
+    <p>
+      Az anyag gondolkodási alap mindazok számára, akik az oktatás megújításáért felelősen kívánnak tenni.
+    </p>
 
-<div class="section">
-<h2>Podcast</h2>
+    <a href="assets/OKN_2026.pdf"
+       class="button"
+       target="_blank"
+       onclick="trackPdfDownload()">
+      A teljes dokumentum letöltése (PDF)
+    </a>
+  </div>
 
-<div class="video-wrapper">
-<iframe
-src="https://www.youtube.com/embed/videoseries?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
-allowfullscreen></iframe>
-</div>
+  <div class="section">
+    <h2>Podcast</h2>
 
-<p style="text-align:center;margin-top:10px;">
-<a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
-target="_blank"
-onclick="trackPodcastPlaylistClick(this.href)">
-Teljes playlist megnyitása YouTube-on →
-</a>
-</p>
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
+        title="Oktatási Közös Nevező Podcast"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
 
-</div>
+    <p style="margin:8px 0 0 0; text-align:center;">
+      <a href="https://youtube.com/playlist?list=PLmsZZfz7tYrUqrTejp7OeejeBYUjj86Oj"
+         target="_blank"
+         rel="noopener"
+         style="text-decoration:none; font-weight:500;"
+         onclick="trackPodcastPlaylistClick(this.href)">
+        Teljes playlist megnyitása YouTube-on →
+      </a>
+    </p>
+  </div>
 
-<div class="section">
-<h2>Kapcsolat</h2>
-<p style="text-align:center;">
-<a href="mailto:magyaroktatas@proton.me">magyaroktatas@proton.me</a>
-</p>
-</div>
+  <div class="section contact-section">
+    <h2>Kapcsolat</h2>
+    <div class="contact-email">
+      <a href="mailto:magyaroktatas@proton.me">magyaroktatas@proton.me</a>
+    </div>
+  </div>
 
 </div>
 
 <footer>
-© 2026 Oktatási Közös Nevező<br>
-Civil, önkéntes állampolgári kezdeményezés<br>
-Projekt- és ötletgazda: Dr. Bogdán Csaba<br>
-Creative Commons BY-NC-ND 4.0
+  © 2026 Oktatási Közös Nevező<br>
+  Civil, önkéntes állampolgári kezdeményezés<br>
+  Projekt- és ötletgazda: Dr. Bogdán Csaba<br>
+  Creative Commons BY-NC-ND 4.0
+  <span class="footer-privacy">
+    <a href="adatkezeles.html">Adatkezelési tájékoztató</a>
+  </span>
 </footer>
 
+<!-- ===== Cookie consent banner ===== -->
 <div id="cookie-banner">
-Ez a weboldal statisztikai célból anonim mérési adatokat gyűjt (Google Analytics).
-Az adatkezelés részletei: <a href="adatkezeles.html" target="_blank">Adatkezelési tájékoztató</a>
-<button onclick="enableAnalytics()">Elfogadom</button>
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      Ez az oldal minimális statisztikát (Google Analytics) használ a látogatottság és a letöltések méréséhez.
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn" onclick="rejectCookies()">Nem kérem</button>
+      <button class="cookie-btn primary" onclick="acceptCookies()">Elfogadom</button>
+    </div>
+  </div>
 </div>
 
 </body>
