@@ -69,14 +69,7 @@
     text-align:center;
     font-weight:600;
   }
-  #viewer-hint{
-    max-width:900px;
-    margin:8px auto 0;
-    padding:0 20px;
-    font-size:12px;
-    color:#666;
-    text-align:center;
-  }
+ 
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"
@@ -96,7 +89,6 @@
 
 <div id="viewer"></div>
 <div id="viewer-error"></div>
-<div id="viewer-hint"></div>
 
 <script>
   // ====== Beállítások (ezek nálad adottak) ======
@@ -107,16 +99,13 @@
   const OVERLAP = 0;
 
   const errorEl = document.getElementById('viewer-error');
-  const hintEl = document.getElementById('viewer-hint');
 
   function showError(msg){
     errorEl.style.display = 'block';
     errorEl.textContent = msg;
   }
 
-  function setHint(msg){
-    hintEl.textContent = msg || "";
-  }
+  function setHint(msg){/*hint kikapcsolva*/}
 
   function tryLoadImage(url){
     return new Promise((resolve, reject) => {
@@ -134,7 +123,6 @@
     for (const ext of candidates){
       const testUrl = `${TILE_BASE}0/0_0.${ext}`;
       try{
-        setHint(`Teszt tile: ${testUrl}`);
         await tryLoadImage(testUrl);
         return ext;
       }catch(e){
@@ -145,7 +133,6 @@
   }
 
   function initViewer(formatExt){
-    setHint(`Tile format: ${formatExt}`);
 
     OpenSeadragon({
       id: "viewer",
@@ -185,7 +172,6 @@
         "Nem találok csempét a megadott útvonalon. Ellenőrizd, hogy létezik-e pl.: " +
         `"${TILE_BASE}0/0_0.png" vagy ".jpeg" / ".jpg".`
       );
-      setHint("");
       return;
     }
 
