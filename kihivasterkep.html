@@ -102,7 +102,10 @@
     OpenSeadragon({
       id: "viewer",
       prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-      tileSources: "kihivasterkep/map.dzi",
+      tileSources: {
+  type: "image",
+  url: "kihivasterkep/map.dzi"
+},
       showNavigationControl: true,
       zoomPerScroll: 1.2,
       minZoomLevel: 0.6,
