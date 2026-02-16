@@ -3,56 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <title>Kihívástérkép – Oktatási Közös Nevező</title>
 
 <style>
-body{
-  margin:0;
-  background:#111;
-  font-family:'Inter', sans-serif;
-  color:#fff;
-}
+  body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    background:#fff;
+    color:#222;
+    line-height:1.6;
+  }
+  header{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 20px 10px;
+    text-align:center;
+  }
+  header h1{
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  header .sub{
+    margin-top:8px;
+    font-size:13px;
+    color:#555;
+  }
+  .top-actions{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 20px 12px;
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .top-actions a{
+    font-size:13px;
+    text-decoration:none;
+    color:#8b0000; /* mély vörös */
+    font-weight:600;
+  }
+  .top-actions a:hover{ color:#b00000; }
 
-.topbar{
-  padding:16px;
-  text-align:center;
-  font-size:14px;
-}
+  /* Viewer */
+  #viewer{
+    width:100%;
+    height: calc(100vh - 140px);
+    background:#fff;
+    border-top:1px solid #e5e5e5;
+    border-bottom:1px solid #e5e5e5;
+  }
 
-.topbar a{
-  color:#fff;
-  text-decoration:none;
-  opacity:0.7;
-}
-
-.topbar a:hover{
-  opacity:1;
-}
-
-.image-wrapper{
-  width:100%;
-  height:calc(100vh - 50px);
-  overflow:auto;
-  background:#111;
-}
-
-.image-wrapper img{
-  display:block;
-  max-width:none;
-  width:10000px; /* opcionális: fix méret */
-}
+  /* Mobilon kicsit több hely a viewernek */
+  @media (max-width:600px){
+    #viewer{ height: calc(100vh - 160px); }
+  }
 </style>
+
+<!-- OpenSeadragon (Deep Zoom viewer) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"
+        integrity="sha512-kj2c0bJ5b3f2Jd64p9GQ2wq5oD2lG0aJQmXg7m6h1yQv4W4bWmUeKxKJ3Fqzv0c1p4w7o3mRZ4q3dB7nq2m1DQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
 
-<div class="topbar">
-  <a href="index.html">← Vissza</a>
+<header>
+  <h1>Kihívástérkép</h1>
+  <div class="sub">Nagyíts, húzd, és böngészd a térképet (mobilon is).</div>
+</header>
+
+<div class="top-actions">
+  <a href="index.html">← Vissza a főoldalra</a>
+  <a href="kihivasterkep/map.dzi" target="_blank" rel="noopener">DZI megnyitása</a>
 </div>
 
-<div class="image-wrapper">
-  <img src="assets/kihivasterkep.png" alt="A magyar oktatási rendszer kihívástérképe">
-</div>
+<div id="viewer"></div>
+
+<script>
+  // Deep Zoom betöltése (a repo-ban: kihivasterkep/map.dzi)
+  OpenSeadragon({
+    id: "viewer",
+    prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+    tileSources: "kihivasterkep/map.dzi",
+    showNavigationControl: true,
+    zoomPerScroll: 1.2,
+    minZoomLevel: 0.6,
+    maxZoomPixelRatio: 2,
+    gestureSettingsTouch: {
+      pinchToZoom: true,
+      flickEnabled: true
+    }
+  });
+</script>
 
 </body>
 </html>
