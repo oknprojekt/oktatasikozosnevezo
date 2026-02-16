@@ -43,12 +43,11 @@
   .top-actions a{
     font-size:13px;
     text-decoration:none;
-    color:#8b0000; /* mély vörös */
+    color:#8b0000;
     font-weight:600;
   }
   .top-actions a:hover{ color:#b00000; }
 
-  /* Viewer */
   #viewer{
     width:100%;
     height: calc(100vh - 140px);
@@ -56,12 +55,10 @@
     border-top:1px solid #e5e5e5;
     border-bottom:1px solid #e5e5e5;
   }
-
   @media (max-width:600px){
     #viewer{ height: calc(100vh - 160px); }
   }
 
-  /* Hibaszöveg (ha kell) */
   #viewer-error{
     display:none;
     max-width:900px;
@@ -72,9 +69,16 @@
     text-align:center;
     font-weight:600;
   }
+  #viewer-hint{
+    max-width:900px;
+    margin:8px auto 0;
+    padding:0 20px;
+    font-size:12px;
+    color:#666;
+    text-align:center;
+  }
 </style>
 
-<!-- OpenSeadragon (Deep Zoom viewer) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -91,29 +95,61 @@
 </div>
 
 <div id="viewer"></div>
-<div id="viewer-error">Nem töltődött be a térkép. Ellenőrizd, hogy a csempék elérhetők-e: <code>kihivasterkep/map_files/</code> alatt.</div>
+<div id="viewer-error"></div>
+<div id="viewer-hint"></div>
 
 <script>
-  // Biztonsági ellenőrzés: betöltődött-e az OpenSeadragon?
-  if (!window.OpenSeadragon) {
-    document.getElementById('viewer-error').style.display = 'block';
-  } else {
+  // ====== Beállítások (ezek nálad adottak) ======
+  const TILE_BASE = "kihivasterkep/map_files/"; // itt vannak a csempék
+  const WIDTH = 9928;
+  const HEIGHT = 9848;
+  const TILE_SIZE = 256;
+  const OVERLAP = 0;
+
+  const errorEl = document.getElementById('viewer-error');
+  const hintEl = document.getElementById('viewer-hint');
+
+  function showError(msg){
+    errorEl.style.display = 'block';
+    errorEl.textContent = msg;
+  }
+
+  function setHint(msg){
+    hintEl.textContent = msg || "";
+  }
+
+  function tryLoadImage(url){
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => reject(false);
+      // cache-busting, hogy biztosan a frisset nézze
+      img.src = url + (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
+    });
+  }
+
+  async function detectTileFormat(){
+    // A legkisebb szintnél (0) biztosan van 0_0
+    const candidates = ["png", "jpeg", "jpg"];
+    for (const ext of candidates){
+      const testUrl = `${TILE_BASE}0/0_0.${ext}`;
+      try{
+        setHint(`Teszt tile: ${testUrl}`);
+        await tryLoadImage(testUrl);
+        return ext;
+      }catch(e){
+        // próbáljuk a következőt
+      }
+    }
+    return null;
+  }
+
+  function initViewer(formatExt){
+    setHint(`Tile format: ${formatExt}`);
+
     OpenSeadragon({
       id: "viewer",
       prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-
-      // >>> FONTOS: nem a map.dzi-t kérjük, hanem közvetlenül a tile-okat a map_files alól
-      tileSources: {
-        Image: {
-          xmlns: "http://schemas.microsoft.com/deepzoom/2008",
-          Url: "kihivasterkep/map_files/",
-          Format: "jpg",
-          Overlap: "0",
-          TileSize: "256",
-          Size: { Width: 9928, Height: 9848 }
-        }
-      },
-
       showNavigationControl: true,
       zoomPerScroll: 1.2,
       minZoomLevel: 0.6,
@@ -121,9 +157,40 @@
       gestureSettingsTouch: {
         pinchToZoom: true,
         flickEnabled: true
+      },
+
+      // DeepZoom descriptor objektumból (nem .dzi fájlból)
+      tileSources: {
+        Image: {
+          xmlns: "http://schemas.microsoft.com/deepzoom/2008",
+          Url: TILE_BASE,          // fontos: perjellel a végén (nálunk így van)
+          Format: formatExt,       // png / jpeg / jpg (auto-detekttel)
+          Overlap: String(OVERLAP),
+          TileSize: String(TILE_SIZE),
+          Size: { Width: WIDTH, Height: HEIGHT }
+        }
       }
     });
   }
+
+  (async function boot(){
+    if (!window.OpenSeadragon){
+      showError("Nem töltődött be az OpenSeadragon könyvtár (CDN hiba).");
+      return;
+    }
+
+    const ext = await detectTileFormat();
+    if (!ext){
+      showError(
+        "Nem találok csempét a megadott útvonalon. Ellenőrizd, hogy létezik-e pl.: " +
+        `"${TILE_BASE}0/0_0.png" vagy ".jpeg" / ".jpg".`
+      );
+      setHint("");
+      return;
+    }
+
+    initViewer(ext);
+  })();
 </script>
 
 </body>
