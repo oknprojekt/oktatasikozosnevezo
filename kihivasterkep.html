@@ -74,7 +74,7 @@
   }
 </style>
 
-<!-- OpenSeadragon (Deep Zoom viewer) – integrity nélkül, hogy biztosan betöltődjön -->
+<!-- OpenSeadragon (Deep Zoom viewer) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -88,11 +88,10 @@
 
 <div class="top-actions">
   <a href="index.html">← Vissza a főoldalra</a>
-  <a href="kihivasterkep/map.dzi" target="_blank" rel="noopener">DZI megnyitása</a>
 </div>
 
 <div id="viewer"></div>
-<div id="viewer-error">Nem töltődött be a térkép. (Ellenőrizd a map.dzi útvonalat és hogy a tile-ok fent vannak-e.)</div>
+<div id="viewer-error">Nem töltődött be a térkép. Ellenőrizd, hogy a csempék elérhetők-e: <code>kihivasterkep/map_files/</code> alatt.</div>
 
 <script>
   // Biztonsági ellenőrzés: betöltődött-e az OpenSeadragon?
@@ -102,10 +101,19 @@
     OpenSeadragon({
       id: "viewer",
       prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+
+      // >>> FONTOS: nem a map.dzi-t kérjük, hanem közvetlenül a tile-okat a map_files alól
       tileSources: {
-      type: "image",
-      url: "kihivasterkep/map.dzi"
+        Image: {
+          xmlns: "http://schemas.microsoft.com/deepzoom/2008",
+          Url: "kihivasterkep/map_files/",
+          Format: "png",
+          Overlap: "0",
+          TileSize: "256",
+          Size: { Width: 9928, Height: 9848 }
+        }
       },
+
       showNavigationControl: true,
       zoomPerScroll: 1.2,
       minZoomLevel: 0.6,
