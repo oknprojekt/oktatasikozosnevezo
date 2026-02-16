@@ -57,15 +57,25 @@
     border-bottom:1px solid #e5e5e5;
   }
 
-  /* Mobilon kicsit több hely a viewernek */
   @media (max-width:600px){
     #viewer{ height: calc(100vh - 160px); }
   }
+
+  /* Hibaszöveg (ha kell) */
+  #viewer-error{
+    display:none;
+    max-width:900px;
+    margin:16px auto 0;
+    padding:0 20px;
+    font-size:13px;
+    color:#8b0000;
+    text-align:center;
+    font-weight:600;
+  }
 </style>
 
-<!-- OpenSeadragon (Deep Zoom viewer) -->
+<!-- OpenSeadragon (Deep Zoom viewer) – integrity nélkül, hogy biztosan betöltődjön -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"
-        integrity="sha512-kj2c0bJ5b3f2Jd64p9GQ2wq5oD2lG0aJQmXg7m6h1yQv4W4bWmUeKxKJ3Fqzv0c1p4w7o3mRZ4q3dB7nq2m1DQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
@@ -82,22 +92,27 @@
 </div>
 
 <div id="viewer"></div>
+<div id="viewer-error">Nem töltődött be a térkép. (Ellenőrizd a map.dzi útvonalat és hogy a tile-ok fent vannak-e.)</div>
 
 <script>
-  // Deep Zoom betöltése (a repo-ban: kihivasterkep/map.dzi)
-  OpenSeadragon({
-    id: "viewer",
-    prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-    tileSources: "kihivasterkep/map.dzi",
-    showNavigationControl: true,
-    zoomPerScroll: 1.2,
-    minZoomLevel: 0.6,
-    maxZoomPixelRatio: 2,
-    gestureSettingsTouch: {
-      pinchToZoom: true,
-      flickEnabled: true
-    }
-  });
+  // Biztonsági ellenőrzés: betöltődött-e az OpenSeadragon?
+  if (!window.OpenSeadragon) {
+    document.getElementById('viewer-error').style.display = 'block';
+  } else {
+    OpenSeadragon({
+      id: "viewer",
+      prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+      tileSources: "kihivasterkep/map.dzi",
+      showNavigationControl: true,
+      zoomPerScroll: 1.2,
+      minZoomLevel: 0.6,
+      maxZoomPixelRatio: 2,
+      gestureSettingsTouch: {
+        pinchToZoom: true,
+        flickEnabled: true
+      }
+    });
+  }
 </script>
 
 </body>
